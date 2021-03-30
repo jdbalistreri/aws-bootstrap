@@ -3,6 +3,7 @@
 STACK_NAME=awsbootstrap
 REGION=us-west-2
 CLI_PROFILE=awsbootstrap
+DOMAIN=thegreatparts.net
 
 EC2_INSTANCE_TYPE=t2.micro
 
@@ -61,7 +62,8 @@ aws cloudformation deploy \
     GitHubRepo=$GH_REPO \
     GitHubBranch=$GH_BRANCH \
     GitHubPersonalAccessToken=$GH_ACCESS_TOKEN \
-    CodePipelineBucket=$CODEPIPELINE_BUCKET
+    CodePipelineBucket=$CODEPIPELINE_BUCKET \
+    Domain=$DOMAIN
 
 
 # If the deploy succeeded, show the DNS name of the endpoints
