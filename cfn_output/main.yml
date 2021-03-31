@@ -188,7 +188,7 @@ Resources:
   Staging:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/04ff964c46faa4946d155754543608d3.template
+      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/bfc1d2658cbc786c807bc91b48ad15d5.template
       TimeoutInMinutes: 30
       Parameters:
         EC2InstanceType:
@@ -204,7 +204,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     DependsOn: Staging
     Properties:
-      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/04ff964c46faa4946d155754543608d3.template
+      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/bfc1d2658cbc786c807bc91b48ad15d5.template
       TimeoutInMinutes: 30
       Parameters:
         EC2InstanceType:
@@ -239,7 +239,7 @@ Outputs:
       - Staging
       - Outputs.HTTPSEndpoint
     Export:
-      Name: StagingHTTPSEndpoint
+      Name: StagingHTTPSLBEndpoint
   ProdHTTPSLBEndpoint:
     Description: DNS name for the prod HTTPS LB
     Value:
