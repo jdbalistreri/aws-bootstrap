@@ -203,7 +203,7 @@ Outputs:
     Description: DNS name for the staging HTTPS LB
     Value: !GetAtt Staging.Outputs.HTTPSEndpoint
     Export:
-      Name: StagingHTTPSEndpoint
+      Name: StagingHTTPSLBEndpoint
 
   ProdHTTPSLBEndpoint:
     Description: DNS name for the prod HTTPS LB
