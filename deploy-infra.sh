@@ -4,6 +4,7 @@ STACK_NAME=awsbootstrap
 REGION=us-west-2
 CLI_PROFILE=awsbootstrap
 DOMAIN=thegreatparts.net
+CERT=`aws acm list-certificates --region $REGION --profile awsbootstrap --output text --query "CertificateSummaryList[?DomainName=='$DOMAIN'].CertificateArn | [0]"`
 
 EC2_INSTANCE_TYPE=t2.micro
 
@@ -60,6 +61,7 @@ aws cloudformation deploy \
     EC2InstanceType=$EC2_INSTANCE_TYPE \
     GitHubOwner=$GH_OWNER \
     GitHubRepo=$GH_REPO \
+    Certificate=$CERT \
     GitHubBranch=$GH_BRANCH \
     GitHubPersonalAccessToken=$GH_ACCESS_TOKEN \
     CodePipelineBucket=$CODEPIPELINE_BUCKET \

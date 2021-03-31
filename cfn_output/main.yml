@@ -2,6 +2,9 @@ AWSTemplateFormatVersion: 2010-09-09
 Parameters:
   Domain:
     Type: String
+  Certificate:
+    Type: String
+    Description: An existing ACM certificate ARN for your domain
   EC2InstanceType:
     Type: String
   EC2AMI:
@@ -185,7 +188,7 @@ Resources:
   Staging:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/9bbbceb3e28d5a0ce3b3bdcfd411b275.template
+      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/61c557d73d515621eb0722b904238496.template
       TimeoutInMinutes: 30
       Parameters:
         EC2InstanceType:
@@ -195,11 +198,13 @@ Resources:
         Domain:
           Ref: Domain
         SubDomain: staging
+        Certificate:
+          Ref: Certificate
   Prod:
     Type: AWS::CloudFormation::Stack
     DependsOn: Staging
     Properties:
-      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/9bbbceb3e28d5a0ce3b3bdcfd411b275.template
+      TemplateURL: https://s3.us-west-2.amazonaws.com/awsbootstrap-cfn-256329869273/61c557d73d515621eb0722b904238496.template
       TimeoutInMinutes: 30
       Parameters:
         EC2InstanceType:
@@ -209,6 +214,8 @@ Resources:
         Domain:
           Ref: Domain
         SubDomain: prod
+        Certificate:
+          Ref: Certificate
   ProdDeploymentGroup:
     Type: AWS::CodeDeploy::DeploymentGroup
     Properties:
@@ -233,6 +240,14 @@ Outputs:
       - Outputs.LBEndpoint
     Export:
       Name: StagingLBEndpoint
+  StagingHTTPSLBEndpoint:
+    Description: DNS name for the staging HTTPS LB
+    Value:
+      Fn::GetAtt:
+      - Staging
+      - Outputs.HTTPSEndpoint
+    Export:
+      Name: StagingHTTPSEndpoint
   ProdLBEndpoint:
     Description: The DNS name for the prod LB
     Value:
@@ -241,3 +256,11 @@ Outputs:
       - Outputs.LBEndpoint
     Export:
       Name: ProdLBEndpoint
+  ProdHTTPSLBEndpoint:
+    Description: DNS name for the prod HTTPS LB
+    Value:
+      Fn::GetAtt:
+      - Prod
+      - Outputs.HTTPSEndpoint
+    Export:
+      Name: ProdHTTPSLBEndpoint
