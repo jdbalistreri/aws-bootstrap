@@ -17,7 +17,7 @@ if (fs.existsSync(httpsKey) && fs.existsSync(httpsCert)) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.end(message);
-  }
+  })
   server.listen(httpsPort, hostname, () => {
     console.log(`Server running at http://${hostname()}:${httpsPort}/`);
   });
